@@ -3,7 +3,6 @@ kind: Service
 metadata:
   labels:
     app: nginx
-    app.kubernetes.io/instance: my-nginx-app
   name: nginx
 spec:
   ports:
