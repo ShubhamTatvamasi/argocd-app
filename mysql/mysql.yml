@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mysql
+  namespace: argocd
+spec:
+  project: default
+
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: default
+
+  source:
+    chart: mysql
+    repoURL: 'https://charts.bitnami.com/bitnami'
+    targetRevision: 9.4.1
+    helm:
+      releaseName: mysql
+      parameters:
+      - name: auth.rootPassword
+        value: 'userpassword'
+      - name: auth.database
+        value: 'userdb'
+
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+
+    automated:
+      selfHeal: true
+      prune: true
